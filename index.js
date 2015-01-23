@@ -1,35 +1,19 @@
-var util = require('util');
+var Model = require('./lib/model');
+var validators = require('./lib/validators');
+var converters = require('./lib/converters');
 
+var resistor = {
+  model : function(schema, options) {
+    options = options || {};
+    options.converters = options.converters || converters;
+    options.validators = options.validators || validators;
 
-module.exports = {
-  transformer : function(schema) {
-    return function(model, cb) {
-      var transformation = {};
-
-      for (var key in schema) {
-        if (!schema.hasOwnProperty(key)) {
-          continue;
-        }
-
-        var value = model[key];
-
-        if (typeof schema[key] == 'function') {
-          transformation[key] = schema[key](value, key);
-        } else {
-          // TODO: What else?
-        }
-      }
-
-      if (cb) {
-        return cb(null, transformation);
-      }
-
-      return transformation;
-    }
+    return new Model(schema, options);
   },
 
-  bind : function(value, field) {
-    return value;
-  }
+  validators : validators,
+  converters : converters
 };
+
+module.exports = resistor;
 
