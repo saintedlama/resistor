@@ -33,6 +33,20 @@ describe('resistor', function() {
       expect(UserModel.validate).to.be.a('function');
     });
 
+    it('should expose a bind function', function() {
+      var UserModel = resistor.model({});
+
+      expect(UserModel.bind).to.exist;
+      expect(UserModel.bind).to.be.a('function');
+    });
+
+    it('should expose a toObject function', function() {
+      var UserModel = resistor.model({});
+
+      expect(UserModel.toObject).to.exist;
+      expect(UserModel.toObject).to.be.a('function');
+    });
+
     describe('bind', function() {
       it('should bind fields specified as string assignments', function() {
         var UserModel = resistor.model({
@@ -211,6 +225,30 @@ describe('resistor', function() {
         });
 
         var user = UserModel.bind([{ firstname : 'hugo' }, { lastname : 'cabret' }], { excludes : ['lastname'] });
+        expect(user.firstname).to.equal('hugo');
+        expect(user.lastname).to.not.exist;
+      });
+    });
+
+    describe('toObject', function() {
+      it('should convert model to object', function() {
+        var UserModel = resistor.model({
+          firstname: true,
+          lastname: true
+        });
+
+        var user = UserModel.toObject([{ firstname : 'hugo' }, { lastname : 'cabret' }], { excludes : ['lastname'] });
+        expect(user.firstname).to.equal('hugo');
+        expect(user.lastname).to.not.exist;
+      });
+
+      it('should not validate when calling toObject', function() {
+        var UserModel = resistor.model({
+          firstname: { required : false },
+          lastname : { required : true }
+        });
+
+        var user = UserModel.toObject([{ firstname: 'hugo' }]);
         expect(user.firstname).to.equal('hugo');
         expect(user.lastname).to.not.exist;
       });
