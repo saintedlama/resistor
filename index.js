@@ -1,19 +1,35 @@
-var Model = require('./lib/model');
-var validators = require('./lib/validators');
-var converters = require('./lib/converters');
+var builder = require('./lib/builder');
 
-var resistor = {
-  model : function(schema, options) {
-    options = options || {};
-    options.converters = options.converters || converters;
-    options.validators = options.validators || validators;
+module.exports = function (model, options) {
+  options = options || {};
+  options.bindingSources = options.bindingSources || bindingSources;
+  options.errorHandler = options.errorHandler || jsonErrorHandler;
 
-    return new Model(schema, options);
-  },
+  var binder = builder(model, options);
 
-  validators : validators,
-  converters : converters
+  return function (req, res, next) {
+    req.model = binder.bind(options.bindingSources(req, res));
+
+    if (req.model.errors) {
+      return options.errorHandler(req, res, options, next);
+    }
+
+    next();
+  }
 };
 
-module.exports = resistor;
+module.exports.converters = require('./lib/converters');
+module.exports.validators = require('./lib/validators');
 
+function bindingSources(req) {
+  return req.body;
+}
+
+function jsonErrorHandler(req, res) {
+  res
+    .status(400)
+    .json({
+      message: 'Input data is not valid',
+      errors: req.model.errors
+    });
+}

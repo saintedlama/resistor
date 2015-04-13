@@ -1,17 +1,21 @@
 {
   "name": "resistor",
-  "version": "1.1.0",
+  "version": "2.0.0",
   "description": "Resist mass assignment vulnerabilities - map the important bits",
   "main": "index.js",
+  "repository": "https://github.com/saintedlama/resistor.git",
   "scripts": {
     "test": "mocha --recursive -R spec",
     "cover": "istanbul cover ./node_modules/mocha/bin/_mocha --report html -- --recursive -R spec"
   },
   "author": "Christoph Walcher <christoph.walcher@gmail.com>",
   "license": "ISC",
+  "dependencies" : {
+    "generaterr": "^1.1.0",
+    "lodash": "^3.6.0",
+    "validator": "^3.37.0"
+  },
   "devDependencies": {
-    "beautify-benchmark": "^0.2.4",
-    "benchmark": "^1.0.0",
     "chai": "^1.10.0",
     "istanbul": "^0.3.5",
     "mocha": "^2.1.0"
