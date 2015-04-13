@@ -2,7 +2,7 @@ var builder = require('./lib/builder');
 
 module.exports = function (model, options) {
   options = options || {};
-  options.bindingSources = options.bindingSources || bindingSources;
+  options.bindingSources = options.bindingSources || bindingSourceBody;
   options.errorHandler = options.errorHandler || jsonErrorHandler;
 
   var binder = builder(model, options);
@@ -21,8 +21,27 @@ module.exports = function (model, options) {
 module.exports.converters = require('./lib/converters');
 module.exports.validators = require('./lib/validators');
 
-function bindingSources(req) {
+module.exports.bindingSources = {
+  body : bindingSourceBody,
+  query :bindingSourceQuery,
+  params : bindingSourceParams,
+  all : bindingSourceAll
+};
+
+function bindingSourceBody(req) {
   return req.body;
+}
+
+function bindingSourceQuery(req) {
+  return req.query;
+}
+
+function bindingSourceParams(req) {
+  return req.params;
+}
+
+function bindingSourceAll(req) {
+  return [bindingSourceQuery(req), bindingSourceBody(req), bindingSourceParams(req)];
 }
 
 function jsonErrorHandler(req, res) {
