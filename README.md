@@ -11,7 +11,6 @@ This is work in progress. Really!
 ## Usage
 Instead of validating input directly in your route handler resistor will generate a piece of middleware to do the heavy lifting:
 
-
 ```javascript
 
 var validateSignup = resistor({
@@ -45,4 +44,15 @@ router.post('/signup', validateSignup, function(req, res, next) {
   // req.model is set and resistor ensures that req.model.email and req.model.password are set 
 });
 
+```
+
+Using resistor model binding outside of a middleware context:
+
+```javascript
+
+var binder = resistor.binder({ input : '=' });
+var model = binder.bind({ input : 'value'});
+
+console.log(model.input); // prints "value" to stdout 
+      
 ```
