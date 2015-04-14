@@ -2,6 +2,19 @@ var resistor = require('../');
 var expect = require('chai').expect;
 
 describe('resistor', function() {
+  describe('binder', function() {
+    it('should expose a function to create a binder without middleware', function() {
+      expect(resistor.binder).to.be.a('function');
+    });
+
+    it('should create a binder without middleware functionality', function() {
+      var binder = resistor.binder({ input : '=' });
+      var model = binder.bind({ input : 'value'});
+
+      expect(model).to.deep.equal({ input : 'value' });
+    });
+  });
+
   describe('bind', function() {
     it('should bind an empty model definition without errors to "req"', function(done) {
       var middleware = resistor({});

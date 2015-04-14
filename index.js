@@ -21,6 +21,10 @@ module.exports = function (model, options) {
 module.exports.converters = require('./lib/converters');
 module.exports.validators = require('./lib/validators');
 
+module.exports.binder = function(model, options) {
+  return builder(model, options);
+};
+
 module.exports.bindingSources = {
   body : bindingSourceBody,
   query :bindingSourceQuery,
