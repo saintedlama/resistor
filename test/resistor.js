@@ -13,6 +13,15 @@ describe('resistor', function() {
 
       expect(model).to.deep.equal({ input : 'value' });
     });
+
+    it('should add binding errors to errors field', function() {
+      var binder = resistor.binder({ input : { type : 'string', required : true }});
+      var model = binder.bind({});
+
+      expect(model.errors).to.exist;
+      expect(model.errors.input.length).to.equal(1);
+      expect(model.errors.input[0].validator).to.equal('required');
+    });
   });
 
   describe('bind', function() {

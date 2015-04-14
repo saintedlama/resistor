@@ -9,6 +9,9 @@ Resist mass assignment vulnerabilities - map the important bits
 This is work in progress. Really!
 
 ## Usage
+
+### Middleware
+
 Instead of validating input directly in your route handler resistor will generate a piece of middleware to do the heavy lifting:
 
 ```javascript
@@ -46,13 +49,26 @@ router.post('/signup', validateSignup, function(req, res, next) {
 
 ```
 
-Using resistor model binding outside of a middleware context:
+### Plain Javascript
+
+To use resistor model binding outside of a middleware context resistor exposes the `binder` function to construct a binder
 
 ```javascript
 
 var binder = resistor.binder({ input : '=' });
 var model = binder.bind({ input : 'value'});
 
-console.log(model.input); // prints "value" to stdout 
+console.log(model.input); // prints `value` to stdout 
+      
+```
+
+Model binding/validation errors can be accessed by checking the `errors` field of the model
+
+```javascript
+
+var binder = resistor.binder({ input : { type : 'string', required : true }});
+var model = binder.bind({});
+
+console.log(model.errors); // prints `{ input: [ { validator: 'required', value: undefined } ] }` to stdout 
       
 ```
