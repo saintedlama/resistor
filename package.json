@@ -1,6 +1,6 @@
 {
   "name": "resistor",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "Resist mass assignment vulnerabilities - map the important bits",
   "main": "index.js",
   "repository": "https://github.com/saintedlama/resistor.git",
