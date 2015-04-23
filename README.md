@@ -5,9 +5,6 @@ Resist mass assignment vulnerabilities - map the important bits
 
     npm install resistor --save
 
-## Warning
-This is work in progress. Really!
-
 ## Usage
 
 ### Middleware
