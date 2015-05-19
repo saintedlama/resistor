@@ -163,5 +163,18 @@ describe('resistor', function() {
         done();
       });
     });
+
+    it('should support array binding source', function(done) {
+      var middleware = resistor({ input : { type : 'float', required : true }}, { bindingSources : [resistor.bindingSources.body]});
+
+      var floatValue = 10.10;
+      var req = { body  : { input : floatValue.toString() }};
+
+      middleware(req, {}, function() {
+        expect(req.model).to.deep.equal({ input : floatValue });
+
+        done();
+      });
+    });
   });
 });

@@ -1,8 +1,20 @@
+var util = require('util');
 var builder = require('./lib/builder');
 
 module.exports = function (model, options) {
   options = options || {};
   options.bindingSources = options.bindingSources || bindingSourceBody;
+
+  if (util.isArray(options.bindingSources)) {
+    var bindingSources = options.bindingSources;
+
+    options.bindingSources = function(req) {
+      return bindingSources.map(function(bindingSource) {
+        return bindingSource(req);
+      });
+    }
+  }
+
   options.errorHandler = options.errorHandler || jsonErrorHandler;
 
   var binder = builder(model, options);
