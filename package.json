@@ -10,14 +10,14 @@
   },
   "author": "Christoph Walcher <christoph.walcher@gmail.com>",
   "license": "ISC",
-  "dependencies" : {
+  "dependencies": {
     "generaterr": "^1.1.2",
-    "lodash": "^3.9.3",
-    "validator": "^3.40.0"
+    "lodash": "^4.9.0",
+    "validator": "^5.2.0"
   },
   "devDependencies": {
     "chai": "^3.0.0",
-    "istanbul": "^0.3.14",
+    "istanbul": "^0.4.3",
     "mocha": "^2.2.5"
   }
 }
