@@ -12,7 +12,7 @@
   "license": "ISC",
   "dependencies": {
     "generaterr": "^1.1.2",
-    "lodash": "^4.10.0",
+    "lodash": "^4.16.5",
     "validator": "^3.40.0"
   },
   "devDependencies": {
