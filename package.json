@@ -13,7 +13,7 @@
   "dependencies": {
     "generaterr": "^1.1.2",
     "lodash": "^4.10.0",
-    "validator": "^3.40.0"
+    "validator": "^6.2.1"
   },
   "devDependencies": {
     "chai": "^3.0.0",
